@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Freeshelf{% endblock %}
+
+{% block content %}
+{% for book in books %}
+    <div class='main'>
+        <h2 class='booktitle'><a class='booklink' href='{{ book.url }}'>{{ book }}</a></h2>
+        <blockquote>
+            {% for author in book.authors.all %}
+                {% if author == book.authors.all.last %}
+                    <span class='author'>{{ author }}</span>
+                {% else %}
+                    <span class='author'>{{ author }}, </span>
+                {% endif %}
+            {% endfor %}
+            <p>{{ book.description }}</p>
+            <span class='bottomline'>{{ book.date_added }} </span>
+            {% for category in book.categories.all %}
+                {% if category == book.categories.all.last %}
+                    <span class='sect'>{{ category }}</span>
+                {% else %}
+                    <span class='sect'>{{ category }}, </span>
+                {% endif %}
+            {% endfor %}
+        </blockquote>
+    </div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,30 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% block meta %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+
+    <header>
+        <h1 class='top'>Freeshelf</h1>
+        <div></div>
+        <h3 class='top'><a class='login' href="{% url 'registration_register' %}">Register</a></h3>
+    </header>
+
+    <h3 class='categories'>
+        {% for category in categories %}
+            <span class='category'> {{ category }} </span>
+        {% endfor %}
+    </h3>
+
+    {% block content %}{% endblock %}
+
+</body>
+</html>
