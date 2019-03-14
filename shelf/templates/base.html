@@ -13,14 +13,18 @@
 <body>
 
     <header>
-        <h1 class='top'>Freeshelf</h1>
+        <h1 class='top'><a class='login' href={% url 'index' %}>Freeshelf</a></h1>
         <div></div>
-        <h3 class='top'><a class='login' href="{% url 'registration_register' %}">Register</a></h3>
+        <div class='userinfo'>
+            <h3 class='top'><a class='login' href="{% url 'registration_register' %}">Register</a></h3>
+            <h3 class='top'>|</h3>
+            <h3 class='top'><a class='login' href="{% url 'auth_login' %}">Login</a></h3>
+        </div>
     </header>
 
     <h3 class='categories'>
         {% for category in categories %}
-            <span class='category'> {{ category }} </span>
+            <span class='category'><a class='classesarestupid' href="{% url 'category-list' pk=category.pk %}"> {{ category }} </a></span>
         {% endfor %}
     </h3>
 

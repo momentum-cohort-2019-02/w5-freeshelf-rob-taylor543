@@ -16,7 +16,7 @@ class Category(models.Model):
         return self.description
 
     def get_absolute_url(self):
-        return reverse("books-by-category", args=[str(self.id)])
+        return reverse("category-list", args=[str(self.id)])
     
 
 class Book(models.Model):
