@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-
+from django.utils.text import slugify
 
 class Author(models.Model):
     name = models.CharField(max_length=50)
@@ -26,10 +26,29 @@ class Book(models.Model):
     url = models.TextField(max_length=1000)
     date_added = models.DateField(auto_now_add=True)
     categories = models.ManyToManyField(Category, related_name='books')
+    slug = models.SlugField(unique=True)
 
     def __str__(self):
         return self.title
 
     class Meta:
         ordering=['-date_added']
+
+    def save(self, *args, **kwargs):
+        self.set_slug()
+        super().save(*args, **kwargs)
+
+    def set_slug(self):
+        if self.slug:
+            return
+
+        base_slug = slugify(self.title)
+        slug = base_slug
+        n=0
+
+        while Book.objects.filter(slug=slug).count():
+            n+=1
+            slug = base_slug + "-" + str(n)
+
+        self.slug=slug
     

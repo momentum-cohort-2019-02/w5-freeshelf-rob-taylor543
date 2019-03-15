@@ -44,6 +44,8 @@ header {
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: lightgrey;
+    background-color:white;
+    box-shadow: 2px 2px 2px grey;
 }
 
 blockquote {
