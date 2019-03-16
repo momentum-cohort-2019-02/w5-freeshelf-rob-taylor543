@@ -11,12 +11,31 @@ class Author(models.Model):
 
 class Category(models.Model):
     description = models.CharField(max_length=50)
+    slug=models.SlugField(unique=True)
 
     def __str__(self):
         return self.description
 
     def get_absolute_url(self):
         return reverse("category-list", args=[str(self.id)])
+
+    def save(self, *args, **kwargs):
+        self.set_slug()
+        super().save(*args, **kwargs)
+
+    def set_slug(self):
+        if self.slug:
+            return
+
+        base_slug = slugify(self.description)
+        slug = base_slug
+        n=0
+
+        while Category.objects.filter(slug=slug).count():
+            n+=1
+            slug = base_slug + "-" + str(n)
+
+        self.slug=slug
     
 
 class Book(models.Model):
